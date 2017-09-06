@@ -4,10 +4,17 @@ import './index.css';
 
 
 class Square extends React.Component {
+	
+	handleClick = () => {
+		alert('click');
+  };
+
   render() {
     return (
-      <button className="square">
-        {/* TODO */}
+      <button className="square" onClick={()=>alert('clicked')}>
+       {/*Avoid {alert('xxx')}*/}
+        {this.props.lable}	{/*read passed-in param*/}
+      
       </button>
     );
   }
@@ -15,7 +22,7 @@ class Square extends React.Component {
 
 class Board extends React.Component {
   renderSquare(i) {
-    return <Square />;
+    return <Square lable={i} />;  // label is passed-in param
   }
 
   render() {
