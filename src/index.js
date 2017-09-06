@@ -5,15 +5,27 @@ import './index.css';
 
 class Square extends React.Component {
 	
-	handleClick = () => {
-		alert('click');
-  };
+	constructor(){
+		super();
+
+		// private state defined in constructor
+		this.state = {
+			value: null
+		};
+	}
+
+
+
+
+	// handleClick = () => {
+	// 	this.setState({value:'X'});
+ //  };
 
   render() {
     return (
-      <button className="square" onClick={()=>alert('clicked')}>
+      <button className="square" onClick={()=> this.setState({value:'X'})}>
        {/*Avoid {alert('xxx')}*/}
-        {this.props.lable}	{/*read passed-in param*/}
+        {this.state.value}	{/*read passed-in param*/}
       
       </button>
     );
