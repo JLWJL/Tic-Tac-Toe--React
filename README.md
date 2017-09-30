@@ -12,3 +12,17 @@ function xx(props){
 
 ### Controlled Component:
 Component like **Board** that controls children's states
+
+### render()
+render() returns a **React element**, which is a lightweight description of what to render.
+
+render() should be pure:
+1. It does not modify component state
+2. It returns the same result each time it’s invoked
+3. It does not directly interact with the browser. 
+
+
+### constructor()
+1. The place to initialise 'state'
+2. Always call 'super()' at the first
+3. Can be ignored if not state to be intialised
