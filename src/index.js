@@ -68,16 +68,16 @@ class Game extends React.Component {
       history:[{
         squares:Array(9).fill(null)
       }],
-
+      stepNumber: 0,
       xIsNext:true
     };
   }
 
 
   handleClick(i){
-    const history = this.state.history; //[{squares:...}]
-    const current = history[history.length - 1]; //{squares:...}
-    const squares = current.squares.slice(); //'slice' -> copy array, avoid mutability
+    const history = this.state.history.slice(0, this.state.stepNumber+1); //[{squares:...}]
+    const currentStep = history[history.length - 1]; //{squares:...}
+    const squares = currentStep.squares.slice(); //'slice' -> copy array, avoid mutability
 
     //squares[i] avoids changes on existing value of the square
     if(calculateWinner(squares) || squares[i]){
@@ -90,15 +90,37 @@ class Game extends React.Component {
       history:history.concat([{
         squares:squares,
       }]),
+      stepNumber: history.length,
       xIsNext:!this.state.xIsNext
     }); //Calling 'setState' will update the component
 
   } 
 
+  
+  jumpTo(step){
+    this.setState({
+      stepNumber: step,
+      xIsNext: (step%2) ===0, //according to even step number
+    });
+  }
+
+
   render() {
     const history = this.state.history; //[{squares:...}]
-    const current = history[history.length - 1]; //{squares:...}
-    const winner = calculateWinner(current.squares);
+    const currentStep = history[this.state.stepNumber]; //{squares:...}
+    const winner = calculateWinner(currentStep.squares);
+
+    //Using 'map' to render multiple React elements from array 'history'
+    const moves = history.map((step, move)=>{
+      const desc = move ? 'Move #' + move : 'Game start';
+      return(
+        //Assign 'key' for identification
+        <li key={move}> 
+          <a href="#" onClick = {()=> this.jumpTo(move)}>{desc}</a>
+        </li>
+      );
+    });
+
 
     let status;
     if(winner){
@@ -111,13 +133,13 @@ class Game extends React.Component {
       <div className="game">
         <div className="game-board">
           <Board  
-            squares = {current.squares}
+            squares = {currentStep.squares}
             onClick = {(i) => this.handleClick(i)}
           />
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{/* TODO */}</ol>
+          <ol>{ moves }</ol>
         </div>
       </div>
     );
