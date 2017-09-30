@@ -3,38 +3,51 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 
-class Square extends React.Component {
+//class Square extends React.Component {
 	
-	constructor(){
-		super();
-
-		// private state defined in constructor
-		this.state = {
-			value: null
-		};
-	}
-
-
-
-
+function Square(props){
 	// handleClick = () => {
 	// 	this.setState({value:'X'});
  //  };
 
-  render() {
+  //render() {
     return (
-      <button className="square" onClick={()=> this.setState({value:'X'})}>
+      <button className="square" onClick={props.onClick}>
        {/*Avoid {alert('xxx')}*/}
-        {this.state.value}	{/*read passed-in param*/}
+        {props.label}	{/*read passed-in param*/}
       
       </button>
     );
-  }
+  //}
 }
 
+
+/**
+* Board class is called 'controlled component'
+* It controlls the state of the children
+*/
+
 class Board extends React.Component {
+	//Store Squares' state in Board component
+	constructor(){
+		super();
+    this.state ={
+			squares: Array(9).fill(null)
+		};
+	}
+
+  handleClick(i){
+    const squares = this.state.squares.slice(); //'slice' -> copy array, avoid mutability
+    squares[i] = 'X';
+    this.setState({squares: squares}); //Calling 'setState' will update the component
+  } 
+
   renderSquare(i) {
-    return <Square lable={i} />;  // label is passed-in param
+    return (
+      <Square 
+      label={this.state.squares[i]} // label is passed-in param
+      onClick={()=>this.handleClick(i)} />  
+    );
   }
 
   render() {
