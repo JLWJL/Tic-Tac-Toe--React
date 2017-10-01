@@ -68,7 +68,8 @@ class Game extends React.Component{
       }],
       player:null,
       stepNumber:0,
-      xIsNext:true
+      xIsNext:true,
+      isAscend:true
     }
   }
 
@@ -114,8 +115,11 @@ class Game extends React.Component{
           />
         </div>
         <div className="game-info">
+          <button onClick={()=>this.handleSortClick()}>
+            {this.state.isAscend?"Desend":"Ascend"}
+          </button>
           <div>{ status }</div>
-          <ol>{ moves }</ol>
+          <ol>{ this.state.isAscend? moves: moves.reverse() }</ol>
         </div>
       </div>
     );
@@ -157,6 +161,12 @@ class Game extends React.Component{
       }
     );
   }
+
+  handleSortClick(){
+    this.setState({
+      isAscend:!this.state.isAscend
+    });
+  }
 }
 
 
@@ -196,9 +206,7 @@ function calculateWinner(squares){
         winner:squares[a],
         winSquares:lines[i]
       }
-
     }
   }
-
   return null;
 }
