@@ -19,3 +19,11 @@ This is to find, when rendering moves list, the index of history that matches th
 1. Define a ```style``` object that contains the ```fontWeight``` style.
 2. Compare the history index with ```this.state.stepNumber```, by which assign value to ```fontWeight```.
 3. Pass down ```style``` to ```<a>```` 
+
+
+#### Display player and move position
+Store information and move position in ```state``` of each history.
+
+1. Add ```position``` in ```history``` and ```player``` in ```state```
+2. Add function ```getPosition``` to calculate the coordinates of the clicked square by ```i``` passed in ```handleClick```.
+3. In ```this.setState```, set ```position``` and ```player```. ```player``` is determined by ```this.state.xIsNext ? "X":"O"```
