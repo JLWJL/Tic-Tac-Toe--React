@@ -52,6 +52,7 @@ class Game extends React.Component{
     this.state={
       history: [{
         squares:Array(9).fill(null),
+        position:[0,0],
       }],
       stepNumber:0,
       xIsNext:true
@@ -65,7 +66,7 @@ class Game extends React.Component{
     const squares = history[this.state.stepNumber].squares;
 
     const moves = history.map((move, step)=>{
-      const index = step===0? "Game start":"Move #"+step;
+      const index = step===0? "Game start":"Move #"+step+"-"+(move.player)+" "+move.position;
       return(
         <li key={step}>
           <a href = "#" onClick={()=>this.jumpTo(step)}>{index}</a>
@@ -105,9 +106,9 @@ class Game extends React.Component{
   */
   handleClick(i){
     const history = this.state.history.slice(0, this.state.stepNumber+1);
+    console.log("history: ", history)
     const currentStep = history[history.length-1];
     const squares = currentStep.squares.slice();
-
     if(calculateWinner(squares)|| squares[i]){
       return;
     }
@@ -116,7 +117,9 @@ class Game extends React.Component{
     
     this.setState({
       history:history.concat([{
-        squares:squares
+        squares:squares,
+        position:getPosition(i),
+        player:this.state.xIsNext ? "X":"O",
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext
@@ -133,6 +136,22 @@ class Game extends React.Component{
     );
   }
 }
+
+
+ReactDOM.render(
+  <Game/>,
+  document.getElementById('root')
+
+);
+
+
+function getPosition(i){
+  let x = Math.floor(i%3)+1;
+  let y = Math.floor(i/3)+1
+
+  return [x,y]
+}
+
 
 function calculateWinner(squares){
   const lines = [
@@ -158,11 +177,6 @@ function calculateWinner(squares){
 }
 
 
-ReactDOM.render(
-  <Game/>,
-  document.getElementById('root')
-
-);
 
 
 
