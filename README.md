@@ -1,3 +1,5 @@
+**To view enhanced version, please checkout to 'DIY' branch**
+
 #  Notes during the study
 
 ## Concepts:
