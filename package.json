@@ -16,5 +16,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "homepage": "https://ryanwng.github.io/official-react-tutorial"
+  "homepage": "https://ryanwng.github.io/Tic-Tac-Toe--React"
 }
