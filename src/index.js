@@ -76,12 +76,20 @@ class Game extends React.Component{
     let status =""
     const history = this.state.history.slice();
     const squares = history[this.state.stepNumber].squares;
+    
 
-    const moves = history.map((move, step)=>{
-      const index = step===0? "Game start":"Move #"+step+"-"+(move.player)+" "+move.position;
+    const moves = history.map((record, index)=>{
+
+      const style = 
+      {
+        fontWeight:index==this.state.stepNumber?"bold":"normal"
+      };
+
+      const move = index===0? "Game start":"Move #"+index+"-"+(record.player)+" "+record.position;
+
       return(
-        <li key={step}>
-          <a href = "#" onClick={()=>this.jumpTo(step)}>{index}</a>
+        <li key={index}>
+          <a href = "#" style={style} onClick={()=>this.jumpTo(index)}>{move}</a>
         </li>
       );
     });
