@@ -40,6 +40,14 @@ ol, ul {
   background: #ddd;
 }
 
+.mark-X{
+  color:blue;
+}
+
+.mark-O{
+  color:red;
+}
+
 .game {
   display: flex;
   flex-direction: row;
